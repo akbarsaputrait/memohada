@@ -1,10 +1,43 @@
 <template>
   <div id="app">
+    <loading :active.sync="loading" 
+        :can-cancel="false" 
+        :is-full-page="true"></loading>
     <transition name="router-anim">
       <router-view />
     </transition>
   </div>
 </template>
+
+<script>
+// Import component
+import Loading from "vue-loading-overlay"
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css"
+import { mapGetters } from 'vuex'
+
+export default {
+  created: function () {
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch(logout)
+        }
+        throw err;
+      });
+    });
+  },
+  computed: {
+    ...mapGetters([
+      'loading'
+    ])
+  },
+  components: {
+    Loading
+  }
+}
+</script>
+
 
 <style>
   #app {
@@ -64,6 +97,54 @@
       transform: translateX(0);
       opacity: 1;
     }
+  }
+
+  @media (min-width: 1281px) {
+
+    img {
+      max-width: 80%;
+    }
+
+  }
+
+  @media (min-width: 1025px) and (max-width: 1280px) {
+
+    img {
+      max-width: 80%;
+    }
+
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+
+    img {
+      max-width: 80%;
+    }
+
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+    img {
+      max-width: 50%;
+    }
+
+  }
+
+  @media (min-width: 481px) and (max-width: 767px) {
+
+    img {
+      max-width: 50%;
+    }
+
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+
+    img {
+      max-width: 50%;
+    }
+
   }
 
 </style>

@@ -3,7 +3,7 @@
   <ion-content>
     <ion-row justify-content-center align-items-end class="h-100 ion-padding-vertical">
       <ion-col size="6" size-md="6" size-sm="12" size-lg="6" size-xs="12">
-        <ion-card mode="ios" class="ion-text-left">
+        <ion-card mode="ios" class="ion-text-left"  style="--background: white;">
           <ion-text class="ion-text-left">
             <h3 class="ion-margin-start d-flex ion-align-items-center">
               <ion-icon name="ios-person" class="ion-margin-end" />
@@ -47,3 +47,10 @@
   }
 
 </script>
+
+<style lang="scss" scoped>
+ion-content {
+  --background: url("https://i.ibb.co/MBLP8Y2/Artboard-2-4x.png") no-repeat
+    center center / cover;
+}
+</style>

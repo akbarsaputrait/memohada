@@ -8,10 +8,13 @@
 
 <script>
   import ListAllTodo from '../components/ListAllTodo.vue'
+  import {
+    mapActions
+  } from 'vuex'
   export default {
     components: {
       ListAllTodo,
-    }
+    },
   }
 
 </script>

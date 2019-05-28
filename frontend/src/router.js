@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
+import store from './store'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'login',
       component: Login
@@ -21,12 +21,34 @@ export default new Router({
     {
       path: '/todo',
       name: 'todo',
-      component: () => import('./views/Todo.vue')
+      component: () => import('./views/Todo.vue'),
+      meta: {
+        requiresAuth: true
+      },
     },
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('./views/Profile.vue')
+      component: () => import('./views/Profile.vue'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isLogin) {
+      next()
+      return
+    }
+    next({
+      name: 'login'
+    })
+  } else {
+    next()
+  }
+})
+
+export default router

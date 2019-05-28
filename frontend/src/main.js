@@ -11,11 +11,22 @@ import IonicVue from '@ionic/vue'
 
 import axios from 'axios'
 
+const moment = require('moment')
+require('moment/locale/id')
+
+Vue.use(require('vue-moment'), {
+  moment
+})
+
 Vue.use(IonicVue)
-
-Vue.prototype.$http = axios
-
 Vue.config.productionTip = false
+
+Vue.prototype.$http = axios;
+const token = localStorage.getItem('token')
+if (token) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}
+axios.defaults.baseURL = 'http://localhost/memohada/backend/public/api';
 
 new Vue({
   router,
