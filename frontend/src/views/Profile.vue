@@ -1,3 +1,3 @@
 <template>
-    <ion-text>Hallo</ion-text>
+  <ion-text>Hallo</ion-text>
 </template>

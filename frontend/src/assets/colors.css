@@ -86,3 +86,7 @@
 .ion-color-success-tint {
     color: var(--ion-color-success-tint)
 }
+
+.is-invalid {
+    --color: red !important;
+}

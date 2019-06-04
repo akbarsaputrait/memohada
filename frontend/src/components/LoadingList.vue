@@ -2,15 +2,36 @@
   <!-- Skeleton screen -->
   <div>
     <div class="ion-padding custom-skeleton">
-      <ion-row class="ion-justify-content-between ion-align-items-center" v-for="(i, index) in loop">
+      <ion-row
+        v-for="(i, index) in loop"
+        class="ion-justify-content-between ion-align-items-center"
+      >
         <ion-col>
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          <ion-skeleton-text
+            animated
+            style="width: 80%"
+          />
+          <ion-skeleton-text
+            animated
+            style="width: 50%"
+          />
         </ion-col>
-        <ion-col class="d-flex" style="justify-content: flex-end">
-          <ion-skeleton-text animated style="width: 20%; margin-right: 5px;"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 20%; margin-right: 5px;"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        <ion-col
+          class="d-flex"
+          style="justify-content: flex-end"
+        >
+          <ion-skeleton-text
+            animated
+            style="width: 20%; margin-right: 5px;"
+          />
+          <ion-skeleton-text
+            animated
+            style="width: 20%; margin-right: 5px;"
+          />
+          <ion-skeleton-text
+            animated
+            style="width: 20%"
+          />
         </ion-col>
       </ion-row>
     </div>

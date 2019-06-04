@@ -14,13 +14,19 @@
             <ion-card-content>
               <form>
                 <ion-item>
-                  <ion-input type="email" placeholder="Email Address"
-                    @ionInput="formData.email = $event.target.value;" />
+                  <ion-input inputmode="email" placeholder="Email Address" mode="ios" data-vv-name="email" type="email"
+                    v-validate.continues="'required|email'" @ionInput="formData.email = $event.target.value;" />
                 </ion-item>
+                <ul class="errors">
+                  <li v-for="error in errors.collect('email')">{{ error }}</li>
+                </ul>
                 <ion-item class="ion-margin-top">
-                  <ion-input type="password" placeholder="Password"
-                    @ionInput="formData.password = $event.target.value;" />
+                  <ion-input type="password" placeholder="Password" data-vv-name="password"
+                    v-validate.continues="'required|min:8'" @ionInput="formData.password = $event.target.value;" />
                 </ion-item>
+                <ul class="errors">
+                  <li v-for="error in errors.collect('password')">{{ error }}</li>
+                </ul>
                 <ion-button class="ion-margin-top" expand="block" mode="ios" @click="send">
                   Login
                 </ion-button>
@@ -57,9 +63,13 @@
             })
           })
           .catch((error) => {
-            this.$router.push({
-              name: 'login'
-            })
+            this.$ionic.toastController.create({
+                message: 'Something wrong',
+                mode: 'ios',
+                color: 'warning',
+                duration: 2000
+              })
+              .then(t => t.present())
           })
       }
     }

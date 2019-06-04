@@ -1,24 +1,26 @@
 <template>
-    <div class="vld-parent">
-        <loading :active.sync="isLoading" 
-        :can-cancel="true" 
-        :on-cancel="onCancel"
-        :is-full-page="fullPage"></loading>
-    </div>
+  <div class="vld-parent">
+    <loading
+      :active.sync="isLoading" 
+      :can-cancel="true" 
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
+  </div>
 </template>
 
 <script>
 
 
 export default {
+  components: {
+    Loading
+  },
   data() {
     return {
       isLoading: true,
       fullPage: true
     };
-  },
-  components: {
-    Loading
   },
   methods: {
     doAjax() {

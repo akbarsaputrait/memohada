@@ -27,6 +27,22 @@ const router =  new Router({
       },
     },
     {
+      path: '/todo/add',
+      name: 'addTodo',
+      component: () => import('./views/AddTodo.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/todos/:id',
+      name: 'editTodo',
+      component: () => import('./views/EditTodo.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import('./views/Profile.vue'),

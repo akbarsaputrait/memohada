@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <loading :active.sync="loading" 
-        :can-cancel="false" 
-        :is-full-page="true"></loading>
+    <loading :active.sync="loading" :can-cancel="false" :is-full-page="true" />
     <transition name="router-anim">
       <router-view />
     </transition>
@@ -10,32 +8,35 @@
 </template>
 
 <script>
-// Import component
-import Loading from "vue-loading-overlay"
-// Import stylesheet
-import "vue-loading-overlay/dist/vue-loading.css"
-import { mapGetters } from 'vuex'
+  // Import component
+  import Loading from "vue-loading-overlay"
+  // Import stylesheet
+  import "vue-loading-overlay/dist/vue-loading.css"
+  import {
+    mapGetters
+  } from 'vuex'
 
-export default {
-  created: function () {
-    this.$http.interceptors.response.use(undefined, function (err) {
-      return new Promise(function (resolve, reject) {
-        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-          this.$store.dispatch(logout)
-        }
-        throw err;
+  export default {
+    created: function () {
+      this.$http.interceptors.response.use(undefined, function (err) {
+        return new Promise(function (resolve, reject) {
+          if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+            this.$store.dispatch(logout)
+          }
+          throw err;
+        });
       });
-    });
-  },
-  computed: {
-    ...mapGetters([
-      'loading'
-    ])
-  },
-  components: {
-    Loading
+    },
+    computed: {
+      ...mapGetters([
+        'loading'
+      ])
+    },
+    components: {
+      Loading
+    }
   }
-}
+
 </script>
 
 
@@ -47,6 +48,7 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
+
 
   .d-flex {
     display: flex !important;
@@ -145,6 +147,13 @@ export default {
       max-width: 50%;
     }
 
+  }
+
+  ul.errors {
+    list-style-type: none;
+    background: red;
+    color: white;
+    border-radius: 8px;
   }
 
 </style>
