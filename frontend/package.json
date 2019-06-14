@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "Memohada",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "register-service-worker": "^1.6.2",
+    "v-calendar": "^1.0.0-beta.14",
     "vee-validate": "^2.2.9",
     "vue": "^2.6.10",
     "vue-loading-overlay": "^3.2.0",

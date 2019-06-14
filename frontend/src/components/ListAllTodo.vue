@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100">
+  <div class="">
     <div v-if="todos === undefined || todos.length == 0" class="ion-padding custom-skeleton">
       <ion-row align-items-center v-for="item in 3">
         <ion-col>
@@ -29,7 +29,9 @@
         </ion-col>
       </ion-row>
     </div>
-    <ion-scroll v-else>
+    <!-- <ion-scroll v-else> -->
+    <!-- <ion-app> -->
+    <ion-content v-else :scrollEvents="true" scrollY="true" class="scroll-content">
       <ion-list mode="ios" class="ion-padding">
         <ion-item v-for="(item, index) in todos" class="d-flex ion-justify-content-between ion-align-items-center">
           <ion-label>
@@ -51,7 +53,8 @@
           </ion-button>
         </ion-item>
       </ion-list>
-    </ion-scroll>
+    </ion-content>
+    <!-- </ion-scroll> -->
     <ion-footer mode="ios" class="h-100">
       <div class="footer">
 
@@ -73,7 +76,7 @@
         <ion-item lines="none" class="ion-no-padding"
           style="padding-bottom: 16px !important; border-bottom: none !important;">
           <ion-avatar slot="start">
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            <img src="../assets/logo.png">
           </ion-avatar>
           <ion-text>
             <h6 class="ion-no-margin">
@@ -87,6 +90,7 @@
         </ion-item>
       </div>
     </ion-footer>
+    <!-- </ion-app> -->
   </div>
 </template>
 
@@ -258,6 +262,11 @@
     padding-left: 0px !important;
     padding-right: 0px !important;
     padding-bottom: 0px !important;
+  }
+
+  .scroll-content {
+    white-space: nowrap;
+    height: 400px;
   }
 
 </style>

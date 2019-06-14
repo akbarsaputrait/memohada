@@ -9,7 +9,8 @@ import '@ionic/core/css/core.css'
 import '@ionic/core/css/ionic.bundle.css'
 import IonicVue from '@ionic/vue'
 
-import VeeValidate from 'vee-validate';
+import VeeValidate from 'vee-validate'
+import VCalendar from 'v-calendar'
 import axios from 'axios'
 
 const moment = require('moment')
@@ -25,6 +26,16 @@ Vue.use(VeeValidate, {
 Vue.use(require('vue-moment'), {
   moment
 })
+
+Vue.use(VCalendar, {
+  componentPrefix: 'v',
+  screens: {
+    tablet: '576px',
+    laptop: '992px',
+    desktop: '1200px',
+  },
+});
+
 Vue.use(IonicVue)
 Vue.config.productionTip = false
 
@@ -33,7 +44,7 @@ const token = localStorage.getItem('token')
 if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
-axios.defaults.baseURL = 'http://192.168.43.158/memohada/backend/public/api';
+axios.defaults.baseURL = 'http://localhost/memohada/backend/public/api';
 
 new Vue({
   router,
