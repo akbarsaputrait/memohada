@@ -1,3 +1,5 @@
+![alt text](https://raw.githubusercontent.com/akbarsaputrait/memohada/master/frontend/src/assets/welcome-vector.png)
+
 # memohada
 Todo App with VueJS + Ionic (UI Components) ❤ Laravel (API)
 
