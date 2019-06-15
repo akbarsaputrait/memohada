@@ -35,9 +35,17 @@ const router =  new Router({
       }
     },
     {
-      path: '/todos/:id',
+      path: '/todos/:id/edit',
       name: 'editTodo',
       component: () => import('./views/EditTodo.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/todos/done',
+      name: 'doneTodo',
+      component: () => import('./components/ListDoneTodo.vue'),
       meta: {
         requiresAuth: true
       }
@@ -49,7 +57,7 @@ const router =  new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    } 
   ]
 })
 

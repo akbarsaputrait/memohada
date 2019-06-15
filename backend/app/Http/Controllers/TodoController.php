@@ -15,7 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $data = Todo::where('user_id', auth('api')->user()->uuid)->orderBy('id', 'DESC')->get();
+        $data = Todo::where('user_id', auth('api')->user()->uuid)->where('status', 'progress')->orderBy('id', 'DESC')->get();
         return response()->json([
             'success' => true,
             'data' => $data,
@@ -44,6 +44,7 @@ class TodoController extends Controller
         $todo->deadline = date('Y-m-d', strtotime($request->deadline));
         $todo->color = $request->color;
         $todo->user_id = auth('api')->user()->uuid;
+        $todo->status = "progress";
         $todo->save();
 
         return response()->json([
@@ -133,6 +134,30 @@ class TodoController extends Controller
 
         return response()->json([
             'success' => true,
+        ], 200);
+    }
+
+    public function getDone() {
+        $data = Todo::where('user_id', auth('api')->user()->uuid)->where('status', 'done')->orderBy('id', 'DESC')->get();
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ], 200);
+    }
+
+    public function done($id) {
+        if(!Todo::where('id', $id)->exists()) {
+            return response()->json([
+                'success' => false
+            ], 200);
+        }
+
+        $todo = Todo::find($id);
+        $todo->status = "done";
+        $todo->save();
+
+        return response()->json([
+            'success' => true
         ], 200);
     }
 }

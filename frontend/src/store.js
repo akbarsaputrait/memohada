@@ -10,7 +10,8 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     user: {},
     loading: false,
-    todos: []
+    todos: [],
+    doneTodos: []
   },
   mutations: {
     change_token(state, token) {
@@ -34,6 +35,13 @@ export default new Vuex.Store({
     },
     todos(state, todos) {
       state.todos = todos
+    },
+    doneTodos(state, done) {
+      state.doneTodos = done
+    },
+    clearTodos(state) {
+      state.doneTodos = []
+      state.todos = []
     }
   },
   actions: {
@@ -124,7 +132,9 @@ export default new Vuex.Store({
           if (response.data.success) {
             commit('logout')
             localStorage.removeItem('token')
+            localStorage.clear()
           }
+          commit('clearTodos')
           commit('isLoading', false)
           resolve(response)
         }).catch((error) => {
@@ -196,12 +206,12 @@ export default new Vuex.Store({
             }
           })
           .then((response) => {
-            resolve(response)
             commit('isLoading', false)
+            resolve(response)
           })
           .catch((error) => {
-            reject(error)
             commit('isLoading', false)
+            reject(error)
           })
       })
     },
@@ -220,31 +230,73 @@ export default new Vuex.Store({
             }
           })
           .then((response) => {
-            resolve(response)
             commit('isLoading', false)
+            resolve(response)
           })
           .catch((error) => {
-            reject(error)
             commit('isLoading', false)
+            reject(error)
           })
       })
     },
-    delete({commit}, id) {
+    delete({
+      commit
+    }, id) {
       commit('isLoading', true)
       return new Promise((resolve, reject) => {
         axios.delete('todo/' + id, {
+            params: {
+              token: localStorage.getItem('token')
+            }
+          })
+          .then((response) => {
+            commit('isLoading', false)
+            resolve(response)
+          })
+          .catch((error) => {
+            commit('isLoading', false)
+            reject(error)
+          })
+      })
+    },
+    getDone({commit}) {
+      commit('isLoading', true)
+      return new Promise((resolve, reject) => {
+        axios.get('/todo/status/done', {
           params: {
             token: localStorage.getItem('token')
           }
         })
         .then((response) => {
-          resolve(response)
+          const todos = response.data.data
+          commit('doneTodos', todos)
           commit('isLoading', false)
+          resolve(response)
         })
         .catch((error) => {
-          reject(error)
           commit('isLoading', false)
+          reject(error)
         })
+      })
+    },
+    done({
+      commit
+    }, id) {
+      commit('isLoading', true)
+      return new Promise((resolve, reject) => {
+        axios.post('/todo/' + id + '/done', {
+            params: {
+              token: localStorage.getItem('token')
+            }
+          })
+          .then((response) => {
+            commit('isLoading', false)
+            resolve(response)
+          })
+          .catch((error) => {
+            commit('isLoading', false)
+            reject(error)
+          })
       })
     }
   },
@@ -253,6 +305,7 @@ export default new Vuex.Store({
     authStatus: state => state.status,
     user: state => state.user,
     loading: state => state.loading,
-    todos: state => state.todos
+    todos: state => state.todos,
+    doneTodos: state => state.doneTodos
   },
 })

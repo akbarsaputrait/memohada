@@ -8,4 +8,6 @@ Route::group(['middleware' => ['guest'], 'prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth.api'], function () {
     Route::get('user', 'AuthController@user');
     Route::resource('todo', 'TodoController');
+    Route::post('todo/{id}/done', 'TodoController@done');
+    Route::get('todo/status/done', 'TodoController@getDone');
 });

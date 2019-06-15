@@ -66,7 +66,7 @@
               <ion-icon slot="start" name="ios-add" />New Task
             </ion-button>
           </router-link>
-          <router-link :to="{name: 'addTodo'}" style="text-decoration: none !important;">
+          <router-link :to="{name: 'doneTodo'}" style="text-decoration: none !important;">
             <ion-button mode="ios" fill="clear" size="small" color="success">
               Show completed task
             </ion-button>
@@ -96,14 +96,10 @@
 
 <script>
   import Modal from './ModalAdd.vue'
-  import LoadingList from './LoadingList'
   import {
     mapGetters
   } from 'vuex'
   export default {
-    components: {
-      LoadingList
-    },
     data() {
       return {
         user: {}
@@ -201,7 +197,29 @@
               {
                 text: 'Yes',
                 handler: () => {
-                  console.log('Confirm Okay')
+                  this.$store.dispatch('done', id)
+                    .then((response) => {
+                      this.$ionic.toastController.create({
+                          message: 'Succes',
+                          duration: 1000,
+                          mode: 'ios',
+                          color: 'primary'
+                        })
+                        .then(t => t.present())
+
+                      setTimeout(() => {
+                        this.$router.go(this.$router.currentRoute)
+                      }, 500)
+                    })
+                    .catch((error) => {
+                      this.$ionic.toastController.create({
+                          message: 'Something wrong',
+                          duration: 1000,
+                          mode: 'ios',
+                          color: 'warning'
+                        })
+                        .then(t => t.present())
+                    })
                 },
               },
             ],
@@ -226,6 +244,7 @@
                 handler: () => {
                   this.$store.dispatch('logout')
                     .then((response) => {
+                      localStorage.clear()
                       this.$router.push({
                         name: 'login'
                       })

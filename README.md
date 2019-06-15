@@ -3,11 +3,9 @@ Todo App with VueJS + Ionic (UI Components) ❤ Laravel (API)
 
 ### Features
   - Backend
-    - Documentation (soon!)
-    - Auth with Token
+    - Documentation (Postman => https://www.getpostman.com/collections/d93185cd05a35a5bd018)
     - CRUD task (token required)
   - Frontend
-    - Single Page Application ❤
     - Vuejs (Javascript Framework)
     - Ionic (UI Component)
 
