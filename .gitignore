@@ -1,2 +1,4 @@
 frontend/node_modules
 backend/vendor
+config.bat
+node_modules
